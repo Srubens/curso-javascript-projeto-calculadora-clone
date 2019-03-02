@@ -10,6 +10,9 @@ class CalController
 
         this._currentDate;
         this.initialize();
+
+        this.iniButtonsEvents();
+
     }
 
     initialize(){
@@ -18,6 +21,21 @@ class CalController
         setInterval( () =>{
             this.setDisplayDateTime();
         }, 1000 );
+    }
+
+    /**
+     PARA OS EVENTOS DO BOTÕES
+    */
+    iniButtonsEvents(){
+        // let buttons = document.querySelectorAll('#buttons > g, #parts > g');
+        let buttons = document.querySelectorAll('[data-js="buttons-js"] > g, #parts > g');
+        //CASO TENHA UM SEGUNDO PARAMETRO NO FOREACH USAR ENTRE PARENTESE
+        buttons.forEach( btn =>{
+            btn.addEventListener('click', e =>{
+                console.log(btn.className.baseVal.replace("btn-",""));
+            });
+        } );
+
     }
 
     /* GET E SET DO DISPLAY TIME AND DATE  */
