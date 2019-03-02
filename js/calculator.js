@@ -1,2 +1,6 @@
+(function (window, document) { 
+    'use script';
 
-let calculator = new CalController(); 
+    window.calculator = new CalController(); 
+
+})(window, document);

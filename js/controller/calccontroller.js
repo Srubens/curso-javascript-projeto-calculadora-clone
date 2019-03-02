@@ -1,37 +1,68 @@
-class CalController{
+class CalController
+{
     // metodo privado vem o _andelinePrimeiro
     
     constructor(){
-        this._displayCalc = "0";
+        this._locale = 'pt-BR';
+        this._displayCalcEl = document.querySelector('[data-js="display"]');
+        this._dateEl = document.querySelector('[data-js="data"]');
+        this._timeEl = document.querySelector('[data-js="hora"]');
+
         this._currentDate;
         this.initialize();
     }
 
     initialize(){
-        let displayCalcEl = document.querySelector('[data-js="display"]');
-        let dateEl = document.querySelector('[data-js="data"]');
-        let timeEl = document.querySelector('[data-js="hora"]');
-
-        displayCalcEl.innerHTML = "4567";
-        dateEl.innerHTML = "28/12/2018";
-        timeEl.innerHTML = "18:30";
-
+        this.setDisplayDateTime();
+        setInterval( () =>{
+            this.setDisplayDateTime();
+        }, 1000 );
     }
+
+    /* GET E SET DO DISPLAY TIME AND DATE  */
+
+    setDisplayDateTime(){
+        // this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
+        //     day:"2-digit",
+        //     month:"long",
+        //     year:"numeric"
+        // });
+        this.displayDate = this.currentDate.toLocaleDateString(this._locale);
+        this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
+    }
+
+    get displayTime(){
+        this._timeEl.innerHTML;
+    }
+    
+    set displayTime(value){
+        this._timeEl.innerHTML = value;
+    }
+
+    get displayDate(){
+        this._dateEl.innerHTML;
+    }
+
+    set displayDate(value){
+        this._dateEl.innerHTML = value;
+    }
+
+    /* GET E SET DO DISPLAY TIME AND DATE  */
 
     get displayCalc(){
-        return this._displayCalc;
+        return this._displayCalcEl.innerHTML;
     }
 
-    set displayCalc(vale){
-        return this._displayCalc = value;
+    set displayCalc(value){
+        this._displayCalcEl.innerHTML = value;
     }
 
-    get dataAtual(){
-        return this._currentDate;
+    get currentDate(){
+        return new Date();
     }
 
-    set dataAtual(value){
-        return this._currentDate = value;
+    set currentDate(value){
+        this._currentDate = value;
     }
 
 }
