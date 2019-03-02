@@ -14,6 +14,7 @@ class CalController
 
     initialize(){
         this.setDisplayDateTime();
+        
         setInterval( () =>{
             this.setDisplayDateTime();
         }, 1000 );
