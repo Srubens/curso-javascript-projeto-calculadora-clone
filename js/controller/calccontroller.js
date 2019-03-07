@@ -1,87 +1,40 @@
-class CalController
+class CalcController
 {
-    // metodo privado vem o _andelinePrimeiro
-    
-    constructor(){
-        this._locale = 'pt-BR';
-        this._displayCalcEl = document.querySelector('[data-js="display"]');
-        this._dateEl = document.querySelector('[data-js="data"]');
-        this._timeEl = document.querySelector('[data-js="hora"]');
 
-        this._currentDate;
-        this.initialize();
+	constructor(){
+		this._displayCalc = "0";
+		this._currentDate;
+		this.initialize();
+	}
 
-        this.iniButtonsEvents();
+	initialize(){
+		let displayCalcEl = document.querySelector('[data-js="display"]');
+		let dataEl = document.querySelector('[data-js="data"]');
+		let timeEl = document.querySelector('[data-js="hora"]');
+		
+		displayCalcEl.innerHTML = 'RUBENS';
+		dataEl.innerHTML = '07/03/2019';
+		timeEl.innerHTML = '12:43:22';
+	}
 
-    }
+	/** GET **/
 
-    initialize(){
-        this.setDisplayDateTime();
-        
-        setInterval( () =>{
-            this.setDisplayDateTime();
-        }, 1000 );
-    }
+	get displayCalc(){
+		return this._displayCalc;
+	}
 
-    /**
-     PARA OS EVENTOS DO BOTÕES
-    */
-    iniButtonsEvents(){
-        // let buttons = document.querySelectorAll('#buttons > g, #parts > g');
-        let buttons = document.querySelectorAll('[data-js="buttons-js"] > g, #parts > g');
-        //CASO TENHA UM SEGUNDO PARAMETRO NO FOREACH USAR ENTRE PARENTESE
-        buttons.forEach( btn =>{
-            btn.addEventListener('click', e =>{
-                console.log(btn.className.baseVal.replace("btn-",""));
-            });
-        } );
+	get currentDate(){
+		return this._currentDate;
+	}
 
-    }
+	/** SET **/
 
-    /* GET E SET DO DISPLAY TIME AND DATE  */
+	set displayCalc(value){
+		this.displayCalc = value;
+	}
 
-    setDisplayDateTime(){
-        // this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
-        //     day:"2-digit",
-        //     month:"long",
-        //     year:"numeric"
-        // });
-        this.displayDate = this.currentDate.toLocaleDateString(this._locale);
-        this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
-    }
-
-    get displayTime(){
-        this._timeEl.innerHTML;
-    }
-    
-    set displayTime(value){
-        this._timeEl.innerHTML = value;
-    }
-
-    get displayDate(){
-        this._dateEl.innerHTML;
-    }
-
-    set displayDate(value){
-        this._dateEl.innerHTML = value;
-    }
-
-    /* GET E SET DO DISPLAY TIME AND DATE  */
-
-    get displayCalc(){
-        return this._displayCalcEl.innerHTML;
-    }
-
-    set displayCalc(value){
-        this._displayCalcEl.innerHTML = value;
-    }
-
-    get currentDate(){
-        return new Date();
-    }
-
-    set currentDate(value){
-        this._currentDate = value;
-    }
+	set currentDate(value){
+		this.currentDate = value;
+	}
 
 }

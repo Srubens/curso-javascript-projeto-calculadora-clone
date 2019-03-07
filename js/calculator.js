@@ -1,6 +1,6 @@
-(function (window, document) { 
-    'use script';
+(function(){
+	'use script';
 
-    window.calculator = new CalController(); 
+	let calculadora = new CalcController();
 
-})(window, document);
+})();
