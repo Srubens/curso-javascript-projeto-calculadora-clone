@@ -20,16 +20,30 @@ class CalcController
 		}, 1000);	
 	}
 
+	addEventListenerAll(element, events, fnc){
+		
+		events.split(' ').forEach(event =>{
+			element.addEventListener(event,fnc, false);
+		});
+
+	}
+
 	//EVENTOS DO BOTÃO
 	initButtonsEvents(){
 		// "#buttons > g.btn-9"
 		// let buttons = document.querySelectorAll("#buttons > g, #parts > g");
 		let buttons = document.querySelectorAll("#buttons > g, #parts > g");
 		buttons.forEach((btn,index) =>{
-			btn.addEventListener('click', e=>{
+			
+			this.addEventListenerAll(btn,'click drag mouseover', e=>{
 				console.log(btn.className.baseVal.replace("btn-",""));
 			});
+
+			this.addEventListenerAll(btn, "mouseover mouseup mosedown", e =>{
+				btn.style.cursor = "pointer";
+			});
 		});
+
 	}
 
 	//SETANDO DATA E HORA
