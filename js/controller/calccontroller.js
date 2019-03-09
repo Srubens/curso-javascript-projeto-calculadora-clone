@@ -11,6 +11,7 @@ class CalcController
 
 		this._currentDate;
 		this.initialize();
+		this._operation = [];
 	}
 
 	initialize(){
@@ -28,15 +29,76 @@ class CalcController
 
 	}
 
+	//LIMPA TODA A OPERACAO
+	clearAll(){
+		this._operation = [];
+	}
+
+	clearEntry(){
+		this._operation.pop();
+	}
+
+	//ADD NUMERO NA OPERACAO
+	addOperation(value){
+		this._operation.push(value);
+		console.log(this._operation);
+	}
+
+	//FNC ERROR
+	setError(){
+		this.displayCalc = "Erro! :(";
+	}
+
+	//EXECUTANDO OS BOTOES
+	execBtn(value){
+		switch(value){
+			case 'ac':
+				this.clearAll();
+			break;
+			case 'ce':
+				this.clearEntry()
+			break;
+			case 'soma':
+			break;
+			case 'subtracao':
+			break;
+			case 'divisao':
+			break;
+			case 'multiplicacao':
+			break;
+			case 'porcento':
+			break;
+			case 'ponto':
+			break;
+			case 'igual':
+			break;
+			case '0':
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+			case '8':
+			case '9':
+				this.addOperation(parseInt(value));
+			break;
+			default:
+				this.setError();
+			break;
+			
+		}
+	}
+
 	//EVENTOS DO BOTÃO
 	initButtonsEvents(){
-		// "#buttons > g.btn-9"
-		// let buttons = document.querySelectorAll("#buttons > g, #parts > g");
 		let buttons = document.querySelectorAll("#buttons > g, #parts > g");
 		buttons.forEach((btn,index) =>{
 			
-			this.addEventListenerAll(btn,'click drag mouseover', e=>{
-				console.log(btn.className.baseVal.replace("btn-",""));
+			this.addEventListenerAll(btn,'click drag', e=>{
+				let textBtn = btn.className.baseVal.replace("btn-","");
+				this.execBtn(textBtn);
 			});
 
 			this.addEventListenerAll(btn, "mouseover mouseup mosedown", e =>{
