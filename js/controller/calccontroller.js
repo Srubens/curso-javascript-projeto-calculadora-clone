@@ -38,9 +38,76 @@ class CalcController
 		this._operation.pop();
 	}
 
+	getLastOperation(){
+		return this._operation[this._operation.length - 1];
+	}
+
+	// VERIFICA O ULTIMO PARAMETRO PASSADO
+	setLastOperation(value){
+		this._operation[this._operation.length - 1] = value;
+	}
+
+	//VERIFICA SE E UM OPERADOR
+	isOperator(value){
+		return (['+','-','*','/','%','.'].indexOf(value) > -1);
+	}
+
+	//RESPONSAVEL POR FAZER O PUSH
+	pushOperation(value){
+		this._operation.push(value);
+
+		if(this._operation.length > 3){
+			// let last = this._operation.pop();
+
+			this.calc();
+
+			// console.log(this._operation);
+		}
+	}
+
+	//CALCULA A OPERAÇÃO
+	calc(){
+		let last = this._operation.pop();
+		let result = eval(this._operation.join(""));
+
+		this._operation = [result, last];
+	}
+
+	//MOSTRA O ULTIMO NUMERO NO DISPLAY
+	setLastNumberToDisplay(){
+		
+	}
+
 	//ADD NUMERO NA OPERACAO
 	addOperation(value){
-		this._operation.push(value);
+
+		// console.log('A', value, isNaN(this.getLastOperation()));
+
+		if( isNaN(this.getLastOperation()) ){
+			//STRING
+			if(this.isOperator(value)){
+				//TROCAR O OPERADOR
+				this.setLastOperation(value);
+			}else if(isNaN(value)){
+				//OUTRA COISA
+				console.log(`OUTRA COISA `,value);
+			}else{
+				this.pushOperation(value);
+			}
+		}else{
+
+			if(this.isOperator(value)){
+				this.pushOperation(value);
+			}else{
+				//NUMBER
+				let newValue = this.getLastOperation().toString() + value.toString();
+				this.setLastOperation(parseInt(newValue));
+				//ATUALIZAR DISPLAY
+				this.setLastNumberToDisplay();
+			}
+		}
+
+		// this._operation.push(value);
 		console.log(this._operation);
 	}
 
@@ -59,16 +126,22 @@ class CalcController
 				this.clearEntry()
 			break;
 			case 'soma':
+				this.addOperation('+');
 			break;
 			case 'subtracao':
+				this.addOperation('-');
 			break;
 			case 'divisao':
+				this.addOperation('/');
 			break;
 			case 'multiplicacao':
+				this.addOperation('*');
 			break;
 			case 'porcento':
+				this.addOperation('%');
 			break;
 			case 'ponto':
+				this.addOperation('.');
 			break;
 			case 'igual':
 			break;
