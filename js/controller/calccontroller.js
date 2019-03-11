@@ -37,6 +37,8 @@ class CalcController
 	//LIMPA TODA A OPERACAO
 	clearAll(){
 		this._operation = [];
+		this._lastNumber = '';
+		this._lastOperator = '';
 		this.setLastNumberToDisplay();
 	}
 
@@ -150,9 +152,6 @@ class CalcController
 			if(this.isOperator(value)){
 				//TROCAR O OPERADOR
 				this.setLastOperation(value);
-			}else if(isNaN(value)){
-				//OUTRA COISA
-				console.log(`OUTRA COISA `,value);
 			}else{
 				this.pushOperation(value);
 				this.setLastNumberToDisplay();
@@ -164,7 +163,7 @@ class CalcController
 			}else{
 				//NUMBER
 				let newValue = this.getLastOperation().toString() + value.toString();
-				this.setLastOperation(parseInt(newValue));
+				this.setLastOperation(newValue);
 				//ATUALIZAR DISPLAY
 				this.setLastNumberToDisplay();
 			}
@@ -177,6 +176,26 @@ class CalcController
 	//FNC ERROR
 	setError(){
 		this.displayCalc = "Erro! :(";
+	}
+
+	addDot(){
+		//PEGA A ULTIMA COISA DA OPERAÇÃO
+		let lastOperation = this.getLastOperation();
+
+		if(typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
+
+		if(this.isOperator(lastOperation) || lastOperation == undefined){
+			this.getLastOperation()
+			this.pushOperation('0.');
+		}else{
+			this.setLastOperation(lastOperation.toString() + '.');
+		}
+
+		this.setLastNumberToDisplay();
+		console.log(this.setLastNumberToDisplay());
+		
+
+		console.log(lastOperation);
 	}
 
 	//EXECUTANDO OS BOTOES
@@ -204,7 +223,7 @@ class CalcController
 				this.addOperation('%');
 			break;
 			case 'ponto':
-				this.addOperation('.');
+				this.addDot();
 			break;
 			case 'igual':
 				this.calc();
